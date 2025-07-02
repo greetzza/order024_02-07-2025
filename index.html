@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>You Did It!</h1>
+        <h1>Happy Weekend!</h1>
         <p class="instruction" id="ins">Click on the image below to reveal your card</p>
         
         <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
@@ -18,58 +18,85 @@
         
         <div class="card-content" id="cardContent">
             
-            <h2>To Taniaa</h2>
-            <p>I’m proud of how far you’ve come.</p>
-<p>You pushed through the stress, the doubt, and the late nights.</p>
-<p>You made it happen.</p>
-            <p>This is your moment —</p>
-<p>You’ve earned it.</p>
-<p>Take a breath, smile, and keep going. i'm proud of you, of course! always 🤍</p>
-            <p class="signature">With warmest regards,<br>Your Friend</p>
-            
-            <div class="music-control">
-                <button id="playBtn">Play Music</button>
-                <button id="pauseBtn">Pause Music</button>
-            </div>
+            <h2>To Aprilia Bunga Safira</h2>
+            <p>Happy weekend adek</p>
+            <p>semangat teruss yaa ,kamu hebat!!!🫶🏻</p>
+            <p class="signature">With warmest regards,<br>Alwiii</p>
             
             <div class="gallery" id="gallery">
-                <h3>Memories</h3>
-                <div class="masonry">
-                    <div class="masonry-item">
-                        <img src="gambar/foto7.jpg" alt="Memory 1">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto2.jpg" alt="Memory 2">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto3.jpg" alt="Memory 3">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto4.jpg" alt="Memory 4">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto6.jpg" alt="Memory 5">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto1.jpg" alt="Memory 6">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto5.jpg" alt="Memory 7">
-                    </div>
-                    <div class="masonry-item">
-                        <img src="gambar/foto8.jpg" alt="Memory 8">
-                    </div>
+        <h3>Memories</h3>
+        
+        <!-- Add this video container -->
+        <div class="video-container">
+            <div class="video-wrapper">
+                <!-- YouTube iframe with enablejsapi=1 parameter -->
+                <iframe id="youtube-video" 
+                        src="https://www.youtube.com/embed/V_ipVdFqUws?enablejsapi=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+            
+            <div class="video-controls">
+                <button id="play-video">Play</button>
+                <button id="pause-video">Pause</button>
+                <div class="volume-control">
+                    <span>Volume:</span>
+                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="50">
                 </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
     
-    <audio id="bgMusic" loop>
-        <source src="gambar/lagu.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
     
     <script>
+        // Add this to your existing script
+        
+        // YouTube API setup
+        let player;
+        
+        // This function loads the YouTube IFrame Player API code asynchronously
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+        
+        // This function is called by the YouTube API when ready
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+        
+        // When player is ready, set up event listeners
+        function onPlayerReady(event) {
+            // Set initial volume
+            player.setVolume(50);
+            
+            // Play button
+            document.getElementById('play-video').addEventListener('click', function() {
+                player.playVideo();
+            });
+            
+            // Pause button
+            document.getElementById('pause-video').addEventListener('click', function() {
+                player.pauseVideo();
+            });
+            
+            // Volume control
+            document.getElementById('volume-slider').addEventListener('input', function() {
+                player.setVolume(this.value);
+            });
+        }
+        
+        // Load the YouTube API when the page loads
+        window.addEventListener('load', loadYouTubeAPI);
         const cardTrigger = document.getElementById('cardTrigger');
         const cardContent = document.getElementById('cardContent');
         const gallery = document.getElementById('gallery');
